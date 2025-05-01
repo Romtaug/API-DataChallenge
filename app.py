@@ -94,7 +94,7 @@ def health():
 
 @app.get(
     "/download_sample",
-    summary="➔ Télécharger un CSV exemple",
+    summary="➔ Télécharger un exemple de fichier CSV",
     description="Télécharge le fichier 'test_input_for_API.csv', un exemple prêt à l'emploi pour vérifier le bon format des données."
 )
 def download_sample():
