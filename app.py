@@ -81,20 +81,32 @@ def preprocess_for_prediction(input_path: str):
     print(f"✅ Données prêtes : {X_new.shape}")
     return X_new
 
+##########################################################################################
 
-@app.get("/health")
+@app.get(
+    "/health",
+    summary="➔ Vérifie que l'API est en ligne",
+    description="Retourne un simple status {'status': 'ok'} pour confirmer que l'API fonctionne correctement."
+)
 def health():
     return {"status": "ok"}
 
-@app.get("/download_sample")
+
+@app.get(
+    "/download_sample",
+    summary="➔ Télécharger un CSV exemple",
+    description="Télécharge le fichier 'test_input_for_API.csv', un exemple prêt à l'emploi pour vérifier le bon format des données."
+)
 def download_sample():
-    """
-    📥 Télécharger le fichier CSV exemple déjà prêt (test_input_for_API.csv).
-    """
-    file_path = "test_input_for_API.csv"  # Chemin vers ton fichier existant
+    file_path = "test_input_for_API.csv"
     return FileResponse(file_path, filename="test_input_for_API.csv", media_type="text/csv")
 
-@app.post("/predict_freq")
+
+@app.post(
+    "/predict_freq",
+    summary="➔ Prédire la fréquence des sinistres (FREQ)",
+    description="Uploadez un CSV avec vos données : l'API retourne un JSON avec les prédictions de fréquence des sinistres pour chaque ID."
+)
 async def predict_freq(file: UploadFile = File(...)):
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         content = await file.read()
@@ -112,7 +124,11 @@ async def predict_freq(file: UploadFile = File(...)):
     return result.to_dict(orient="records")
 
 
-@app.post("/predict_montant")
+@app.post(
+    "/predict_montant",
+    summary="➔ Prédire le montant moyen des sinistres (CM)",
+    description="Uploadez un CSV avec vos données : l'API retourne un JSON avec les prédictions du montant moyen des sinistres pour chaque ID."
+)
 async def predict_montant(file: UploadFile = File(...)):
     with tempfile.NamedTemporaryFile(delete=False) as tmp:
         content = await file.read()
@@ -130,7 +146,11 @@ async def predict_montant(file: UploadFile = File(...)):
     return result.to_dict(orient="records")
 
 
-@app.post("/predict_global")
+@app.post(
+    "/predict_global",
+    summary="➔ Générer le fichier submission.csv (FREQ x CM x ANNEE_ASSURANCE = CHARGE)",
+    description="Uploadez un CSV avec vos données : l'API retourne un fichier CSV téléchargeable contenant FREQ, CM, ANNEE_ASSURANCE et CHARGE prêt à soumettre."
+)
 async def predict_global(file: UploadFile = File(...)):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as tmp:
         content = await file.read()
