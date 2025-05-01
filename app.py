@@ -18,7 +18,7 @@ app = FastAPI(
 
 ---
 
-🏆 **Bienvenue sur notre API officielle du Challenge Data !**
+🏆 **Bienvenue sur notre API du Challenge Data !**
 
 Cette API vous permet de générer des prédictions pour participer au challenge **InsurPrime: Can You Guess the Insurance Premium?**, organisé par Crédit Agricole Assurances.
 
