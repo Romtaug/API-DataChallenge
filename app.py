@@ -174,6 +174,6 @@ async def predict_global(file: UploadFile = File(...)):
 
     return FileResponse(output_csv.name, filename="submission.csv", media_type="text/csv")
 
-#http://127.0.0.1:8000
+# http://127.0.0.1:8000
 # http://127.0.0.1:8000/docs 
 # http://127.0.0.1:8000/redoc
