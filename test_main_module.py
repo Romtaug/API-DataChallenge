@@ -29,7 +29,7 @@ class TestPreprocessing(unittest.TestCase):
         df_output.to_csv("train_output.csv", index=False)
 
         X_train, X_test, y_freq, y_cm, df, X, y = preprocess_all(
-            df_train_input.csv, df_test_input.csv, df_train_output.csv, n_train=2
+            df_train_input, df_test_input, df_train_output, n_train=2
         )
 
         self.assertEqual(X_train.shape[0], 2)
